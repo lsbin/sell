@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <router-link class="tab-item" to="/seller">seller</router-link>
       <router-link class="tab-item" to="/ratings">ratings</router-link>
@@ -12,8 +12,20 @@
 
 <script type="text/ecmascript-6">
 import header from 'components/header/header'
+import {getSeller} from './api/index'
 
 export default {
+  data() {
+    return {
+      seller: {}
+    }
+  },
+  created() {
+    getSeller().then((seller) => {
+      this.seller = seller
+      console.log(this.seller)
+    })
+  },
   components: {
     'v-header': header
   }

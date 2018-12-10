@@ -1,6 +1,6 @@
 import {get} from './helpers'
 
-const getSeller = get('/pai/seller')
+const getSeller = get('/api/seller')
 
 export {
   getSeller
