@@ -1,0 +1,75 @@
+查看本地分支
+    git branch
+
+查看所有分支
+    git branch -a
+
+查看所有分支及最近一次提交
+    git branch -av
+
+查看本地分支与远程分支的关联
+    git branch -avv
+
+************************************
+
+查看本地仓库的状态
+    git status
+
+将修改的文件进行暂存
+    git add 文件名
+    git add . (暂存所有已经修改的文件)
+
+撤销暂存的文件
+    git reset 文件名
+    git reset .
+
+提交代码到本仓库
+    git commit -m ''
+
+提交代码到远程仓库
+    提交代码前，建议先下拉代码并rebase。因为我们的一份代码，可能多人同时修改
+    ，当多人同时修改一处代码时会产生分叉合并，所以为了保证分支记录纯净（只有一条线）
+    ，我们提交时先把被人提交的pull并rebase一下然后提交自己的，所以执行如下命令
+    git pull --rebase // push前先下拉并rebase代码
+    git push origin Head:master // 提交代码到远程master分支
+    git push // 也可以直接这样提交，前提是当前分支与远程分支有关联（当然和上面二选一）
+
+查看提交记录
+    git log
+
+                    管理分支
+*********************************************************
+创建新分支v2，并将当前分支切换为v2
+    git checkout -b v2
+
+从当前分支切换为v1
+    git checkout v1
+
+以本地分支v1为基准，创建远程分支remote_branch_v1，中间"："两边不要有空格
+    git push origin v1:remote_branch_v1
+
+push一个空的分支覆盖掉远端分支，就是删除
+    git push origin :remote_branch_v1
+
+从远端拉取分支到本地
+    git checkout -b v4 origin/master // v4本地原来不存在，master远端原来存在
+
+                     撤销操作
+***************************************************************
+代码改动后，撤销所有改动
+    git checkout .
+
+git add a 后，撤销对a的add
+    git reset a
+
+git add . 后，撤销add所有
+    git reset .
+
+已经commit，在当前分支回退1条commit，当然2就是2条;回退后修改内容还在本地
+    git reset HEAD~1
+
+已经push，回滚这条记录，需要注意的是执行完后需要继续执行以下三行才可以，因为远端会保留revert记录
+    git revert HEAD~1
+    git add .
+    git commit -a
+    git push
